@@ -1,12 +1,12 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import FloatingShape from "./components/FloatingShape";
 
-import SignUpPage from "./pages/SignUpPage";
-import LoginPage from "./pages/LoginPage";
-import EmailVerificationPage from "./pages/EmailVerificationPage";
-import DashboardPage from "./pages/DashboardPage";
-import ForgotPasswordPage from "./pages/ForgotPasswordPage";
-import ResetPasswordPage from "./pages/ResetPasswordPage";
+import SignUpPage from "./pages/authPages/SignUpPage";
+import LoginPage from "./pages/authPages/LoginPage";
+import EmailVerificationPage from "./pages/authPages/EmailVerificationPage";
+import DashboardPage from "./pages/clientPages/DashboardPage";
+import ForgotPasswordPage from "./pages/authPages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/authPages/ResetPasswordPage";
 
 import LoadingSpinner from "./components/LoadingSpinner";
 import Homebg from "./assets/Homebg.jpg"
@@ -53,18 +53,16 @@ function App() {
   return (
     // 
     <div
-  className="min-h-screen bg-cover bg-center flex items-center justify-center relative overflow-hidden"
-  style={{
-    backgroundImage: `url(${Homebg})`,
-  }}
->
-{/* Dark Overlay */}
-<div className="absolute inset-0 bg-black bg-opacity-50"></div>
+      className="min-h-screen bg-cover bg-center flex items-center justify-center relative overflow-hidden"
+      style={{
+        backgroundImage: `url(${Homebg})`,
+      }}
+    >
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
 
-      <FloatingShape color='bg-black' size='w-64 h-64' top='-5%' left='10%' delay={0} />
-      <FloatingShape color='bg-black' size='w-48 h-48' top='70%' left='80%' delay={5} />
-      <FloatingShape color='bg-black' size='w-32 h-32' top='40%' left='-10%' delay={2} />
+      <FloatingShape color='bg-red' size='w-64 h-64' top='0%' right='10%' delay={0} />
 
       <Routes>
         <Route

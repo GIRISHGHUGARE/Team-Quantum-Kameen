@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { useAuthStore } from "../store/authStore";
-import { formatDate } from "../utils/Date";
+import { useAuthStore } from "../../store/authStore";
+import { formatDate } from "../../utils/Date";
 
 const DashboardPage = () => {
     const { user, logout } = useAuthStore();

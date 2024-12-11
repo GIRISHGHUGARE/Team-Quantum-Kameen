@@ -26,6 +26,11 @@ const userSchema = new mongoose.Schema({
     resetPasswordExpiresAt: Date,
     verificationToken: String,
     verificationTokenExpiresAt: Date,
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user'
+    },
 }, { timestamps: true });
 
 export const User = mongoose.model('User', userSchema);

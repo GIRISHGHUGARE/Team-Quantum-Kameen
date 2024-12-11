@@ -2,6 +2,8 @@ import express from "express";
 import { checkAuth, forgotPassword, login, logout, resetPassword, signup, verifyEmail } from "../controllers/auth.controller.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 import passport from 'passport';
+import { User } from "../models/user.model.js";
+
 const router = express.Router();
 
 router.post("/signup", signup);
@@ -18,8 +20,32 @@ router.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 // Google callback route
 router.get('/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
-    (req, res) => {
-        // Successful authentication, redirect home.
-        res.redirect('/');
-    });
+    async (req, res) => {
+        try {
+            const { email, name, picture } = req.user; // Extract details from Google profile
+            let user = await User.findOne({ email });
+
+            // If user does not exist, create new user
+            if (!user) {
+                user = new User({
+                    name,
+                    email,
+                    role: "user", // Default role
+                    isVerified: true, // Mark as verified by default (since it's a social login)
+                });
+                await user.save();
+            }
+
+            // Generate token and set cookie
+            generateTokenAndSetCookie(res, user._id);
+
+            // Redirect to the dashboard or home page after successful login
+            res.redirect('/');
+        } catch (error) {
+            console.error("Error in Google authentication", error);
+            res.redirect('/login'); // Redirect to login on failure
+        }
+    }
+);
+
 export default router;

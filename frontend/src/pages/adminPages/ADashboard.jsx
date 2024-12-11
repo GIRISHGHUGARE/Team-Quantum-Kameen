@@ -2,15 +2,21 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useAuthStore } from "../../store/authStore";
 import axios from "axios";
+import EditCourseModal from "../../components/EditCourseModal";
+import AddCourseModal from "../../components/AddCourseModal";
+
+
 
 function ADashboard() {
     const { user, logout } = useAuthStore();
-
     const [courses, setCourses] = useState([]);
     const [users, setUsers] = useState([]); {/* Add this line to define the users state */ }
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [activeSection, setActiveSection] = useState("courses"); // to manage active section
+    const [isAddModalOpen, setAddModalOpen] = useState(false); // State for Add Course Modal
+    const [isEditModalOpen, setEditModalOpen] = useState(false);
+    const [selectedCourse, setSelectedCourse] = useState(null);
 
     const handleLogout = () => {
         logout();
@@ -29,8 +35,8 @@ function ADashboard() {
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get("http://localhost:8000/api/v1/users"); // API endpoint to get users
-            setUsers(response.data);
+            const response = await axios.get("http://localhost:8000/api/v1/auth/admin/users");
+            setUsers(response.data.users); // Extract the 'users' array from the response
         } catch (err) {
             setError("Failed to fetch users. Please try again later.");
         } finally {
@@ -40,20 +46,51 @@ function ADashboard() {
 
     const handleDeleteCourse = async (id) => {
         try {
-            await axios.delete(`http://localhost:8000/api/v1/courses/${id}`);
+            await axios.delete(`http://localhost:8000/api/v1/courses/delete/${id}`);
             setCourses((prevCourses) => prevCourses.filter((course) => course._id !== id));
         } catch (err) {
             alert("Failed to delete course.");
         }
     };
 
-    const handleAddCourse = () => {
-        alert("Redirect to Add Course page or show a form modal!");
+    const handleAddCourse = async (id) => {
+        setAddModalOpen(true); // Open Add Course Modal
+        try {
+            await axios.post(`http://localhost:8000/api/v1/courses/add`);
+            setCourses((prevCourses) =>
+                prevCourses.map((course) =>
+                    course._id === updatedCourse._id ? response.data : course
+                )
+            );
+
+        } catch (err) {
+            alert("Failed to delete user.");
+        }
     };
 
-    const handleEditCourse = (id) => {
-        alert(`Edit Course with ID: ${id}`);
+
+    const handleEditCourse = (course) => {
+        setSelectedCourse(course);
+        setEditModalOpen(true);
     };
+
+    const handleSaveCourse = async (updatedCourse) => {
+        try {
+            const response = await axios.put(
+                `http://localhost:8000/api/v1/courses/${updatedCourse._id}`,
+                updatedCourse
+            );
+            setCourses((prevCourses) =>
+                prevCourses.map((course) =>
+                    course._id === updatedCourse._id ? response.data : course
+                )
+            );
+        } catch (err) {
+            alert("Failed to update course.");
+        }
+    };
+
+
 
     const handleDeleteUser = async (id) => {
         try {
@@ -165,7 +202,7 @@ function ADashboard() {
                                         <motion.button
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
-                                            onClick={() => handleEditCourse(course._id)}
+                                            onClick={() => handleEditCourse(course)}
                                             className="py-2 px-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold rounded-lg shadow-lg hover:from-blue-600 hover:to-indigo-700 focus:outline-none"
                                         >
                                             Edit
@@ -200,7 +237,7 @@ function ADashboard() {
                         <p className="text-red-400 text-center">{error}</p>
                     ) : (
                         <div className="space-y-6 mt-6">
-                            {users.map((user) => (
+                            {Array.isArray(users) && users.map((user) => (
                                 <motion.div
                                     key={user._id}
                                     className="p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700"
@@ -265,6 +302,21 @@ function ADashboard() {
             >
                 Logout
             </motion.button>
+            {isEditModalOpen && (
+                <EditCourseModal
+                    course={selectedCourse}
+                    isOpen={isEditModalOpen}
+                    onClose={() => setEditModalOpen(false)}
+                    onSave={handleSaveCourse}
+                />
+            )}
+            {isAddModalOpen && (
+                <AddCourseModal
+                    isOpen={isAddModalOpen}
+                    onClose={() => setAddModalOpen(false)}
+                    onSave={handleAddCourse}
+                />
+            )}
         </motion.div>
     );
 }

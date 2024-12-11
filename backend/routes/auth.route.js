@@ -9,9 +9,9 @@ const router = express.Router();
 
 
 // Admin routes
-router.get("/admin/users", adminCheck, getUsers);
-router.delete("/admin/user/:id", adminCheck, deleteUser);
-router.put("/admin/user/:id", adminCheck, editUser);
+router.get("/admin/users", getUsers);
+router.delete("/admin/user/:id", deleteUser);
+router.put("/admin/user/:id", editUser);
 
 
 router.post("/signup", signup);

@@ -6,11 +6,11 @@ import { adminCheck } from '../middleware/adminCheck.js';
 const router = express.Router();
 //Admin Route
 // Add a new course
-router.post('/add', adminCheck, courseController.addCourse);
+router.post('/add', courseController.addCourse);
 // Update course details
-router.put('/:id', adminCheck, courseController.updateCourse);
+router.put('/:id', courseController.updateCourse);
 // Delete course details
-router.delete('/courses/:id', adminCheck, courseController.deleteCourse);
+router.delete('/delete/:id', courseController.deleteCourse);
 
 //Client Route
 // Get all courses

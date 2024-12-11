@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import SustainHerLogo from "./../assets/SustainHerLogo.png"
+import SustainHerLogo from "./../assets/SustainHerLogo.png";
+import { Link } from "react-router-dom";
 
 const Header = () => {
     // State for mobile menu
@@ -82,15 +83,19 @@ const Header = () => {
             <div className="hidden md:flex space-x-4">
                 {/* Login and Signup Buttons (Desktop view)*/}
                 <button
-                    class="relative flex items-center gap-2 px-4 py-3 rounded-md min-h-[2.4em] min-w-[3em] text-[18px] tracking-[0.05em] leading-none font-bold text-[hsla(0,0%,90%)] border-none transition-all duration-100 ease-[cubic-bezier(0.22,0.61,0.36,1)] 
+                    className="relative flex items-center gap-2 px-4 py-3 rounded-md min-h-[2.4em] min-w-[3em] text-[18px] tracking-[0.05em] leading-none font-bold text-[hsla(0,0%,90%)] border-none transition-all duration-100 ease-[cubic-bezier(0.22,0.61,0.36,1)] 
   shadow-[inset_0.4px_1px_4px_hsla(0,0%,50%,0.8)] bg-gradient-to-br from-olive to-brown
   hover:shadow-[inset_0.4px_1px_4px_hsla(0,0%,50%,1),2px_4px_8px_rgba(0,0,0,0.295)] hover:scale-110 hover:text-shadow-[0px_0px_10px_rgba(255,255,255,0.4)] 
   active:shadow-[inset_0.4px_1px_8px_hsla(0,0%,50%,1),0px_0px_8px_hsla(240,40%,50%,0.6)] active:text-shadow-[0px_0px_20px_rgba(255,255,255,1)] active:text-white active:tracking-[0.1em] active:scale-100"
                 >
-                    Login
+                    <Link to="/login" >
+                        Login
+                    </Link>
                 </button>
-                <button class="relative inline-block text-center font-bold text-[18px] tracking-[2px] px-5 py-3 border-3 border-white rounded-md shadow-lg shadow-white/10 text-grey transition-all duration-300 hover:text-white focus:text-white focus:outline-none overflow-hidden hover:shadow-[inset_0.4px_1px_4px_hsla(0,0%,50%,1),2px_4px_8px_rgba(0,0,0,0.295)] hover:scale-110 hover:text-shadow-[0px_0px_10px_rgba(255,255,255,0.4)] ">
-                    Signup
+                <button className="relative inline-block text-center font-bold text-[18px] tracking-[2px] px-5 py-3 border-3 border-white rounded-md shadow-lg shadow-white/10 text-grey transition-all duration-300 hover:text-white focus:text-white focus:outline-none overflow-hidden hover:shadow-[inset_0.4px_1px_4px_hsla(0,0%,50%,1),2px_4px_8px_rgba(0,0,0,0.295)] hover:scale-110 hover:text-shadow-[0px_0px_10px_rgba(255,255,255,0.4)] ">
+                    <Link to="/signup" >
+                        Signup
+                    </Link>
                 </button>
             </div>
 
@@ -98,14 +103,14 @@ const Header = () => {
             <div className=" md:hidden flex ml-[200px] space-x-2">
                 {/* Login and Signup Buttons (Mobile view)*/}
                 <button
-                    class="relative flex items-center gap-2 px-4 py-3 rounded-md min-h-[2.4em] min-w-[3em] text-[18px] tracking-[0.05em] leading-none font-bold text-[hsla(0,0%,90%)] border-none transition-all duration-100 ease-[cubic-bezier(0.22,0.61,0.36,1)] 
+                    className="relative flex items-center gap-2 px-4 py-3 rounded-md min-h-[2.4em] min-w-[3em] text-[18px] tracking-[0.05em] leading-none font-bold text-[hsla(0,0%,90%)] border-none transition-all duration-100 ease-[cubic-bezier(0.22,0.61,0.36,1)] 
   shadow-[inset_0.4px_1px_4px_hsla(0,0%,50%,0.8)] bg-gradient-to-br from-olive to-brown
   hover:shadow-[inset_0.4px_1px_4px_hsla(0,0%,50%,1),2px_4px_8px_rgba(0,0,0,0.295)] hover:scale-110 hover:text-shadow-[0px_0px_10px_rgba(255,255,255,0.4)] 
   active:shadow-[inset_0.4px_1px_8px_hsla(0,0%,50%,1),0px_0px_8px_hsla(240,40%,50%,0.6)] active:text-shadow-[0px_0px_20px_rgba(255,255,255,1)] active:text-white active:tracking-[0.1em] active:scale-100"
                 >
                     Login
                 </button>
-                <button class="relative inline-block text-center font-bold text-[18px] tracking-[2px] px-5 py-3 border-2 border-grey rounded-md shadow-lg shadow-black/10 text-olive transition-all duration-300 hover:text-white focus:text-white focus:outline-none overflow-hidden hover:shadow-[inset_0.4px_1px_4px_hsla(0,0%,50%,1),2px_4px_8px_rgba(0,0,0,0.295)] hover:scale-110 hover:text-shadow-[0px_0px_10px_rgba(255,255,255,0.4)] ">
+                <button className="relative inline-block text-center font-bold text-[18px] tracking-[2px] px-5 py-3 border-2 border-grey rounded-md shadow-lg shadow-black/10 text-olive transition-all duration-300 hover:text-white focus:text-white focus:outline-none overflow-hidden hover:shadow-[inset_0.4px_1px_4px_hsla(0,0%,50%,1),2px_4px_8px_rgba(0,0,0,0.295)] hover:scale-110 hover:text-shadow-[0px_0px_10px_rgba(255,255,255,0.4)] ">
                     Signup
                 </button>
             </div>

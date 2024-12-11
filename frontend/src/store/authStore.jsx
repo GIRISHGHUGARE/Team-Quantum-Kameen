@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import axios from "axios"
-
 const API_URL = import.meta.env.MODE === "development" ? "http://localhost:8000/api/v1/auth" : "/api/v1/auth";
 
 axios.defaults.withCredentials = true;
@@ -27,12 +26,17 @@ export const useAuthStore = create((set) => ({
         set({ isLoading: true, error: null });
         try {
             const response = await axios.post(`${API_URL}/login`, { email, password });
+            const { user } = response.data;
             set({
                 isAuthenticated: true,
                 user: response.data.user,
                 error: null,
                 isLoading: false,
             });
+            if (user.role === 'admin') {
+                // Redirect to the admin dashboard
+                navigate("/admindashboard");
+            }
         } catch (error) {
             set({ error: error.response?.data?.message || "Error logging in", isLoading: false });
             throw error;

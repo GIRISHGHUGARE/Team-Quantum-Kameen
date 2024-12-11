@@ -3,8 +3,16 @@ import { checkAuth, forgotPassword, login, logout, resetPassword, signup, verify
 import { verifyToken } from "../middleware/verifyToken.js";
 import passport from 'passport';
 import { User } from "../models/user.model.js";
-
+import { getUsers, deleteUser, editUser } from "../controllers/admin.controller.js";
+import { adminCheck } from '../middleware/adminCheck.js';
 const router = express.Router();
+
+
+// Admin routes
+router.get("/admin/users", adminCheck, getUsers);
+router.delete("/admin/user/:id", adminCheck, deleteUser);
+router.put("/admin/user/:id", adminCheck, editUser);
+
 
 router.post("/signup", signup);
 router.post("/login", login);

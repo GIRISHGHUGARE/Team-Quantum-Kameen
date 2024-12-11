@@ -16,27 +16,37 @@ import { useAuthStore } from "./store/authStore";
 import { useEffect } from "react";
 import LandingPage from "./pages/clientPages/LandingPage";
 import "./App.css"
-// protect routes that require authentication
-const ProtectedRoute = ({ children }) => {
+import ADashboard from "./pages/adminPages/ADashboard";
+
+
+
+const ProtectedRoute = ({ children, role }) => {
   const { isAuthenticated, user } = useAuthStore();
 
   if (!isAuthenticated) {
-    return <Navigate to='/dashboard' replace />;
+    return <Navigate to='/login' replace />;
   }
 
   if (!user.isVerified) {
     return <Navigate to='/verify-email' replace />;
   }
 
+  if (role && user.role !== role) {
+    return <Navigate to='/' replace />;
+  }
+
   return children;
 };
 
-// redirect authenticated users to the home page
+// redirect authenticated users to the dashboard
 const RedirectAuthenticatedUser = ({ children }) => {
   const { isAuthenticated, user } = useAuthStore();
 
   if (isAuthenticated && user.isVerified) {
-    return <Navigate to='/' replace />;
+    if (user.role === 'admin') {
+      return <Navigate to='/admindashboard' replace />;
+    }
+    return <Navigate to='/dashboard' replace />;
   }
 
   return children;
@@ -52,9 +62,8 @@ function App() {
   if (isCheckingAuth) return <LoadingSpinner />;
 
   return (
-    // 
     <div
-      className="min-h-screen bg-cover bg-center flex items-center justify-center relative overflow-hidden"
+      className="min-h-screen bg-cover bg-center flex items-center justify-center relative"
       style={{
         backgroundImage: `url(${Homebg})`,
       }}
@@ -62,23 +71,32 @@ function App() {
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-
       <FloatingShape color='bg-red' size='w-64 h-64' top='0%' right='10%' delay={0} />
 
       <Routes>
+        {/* Default route for unauthenticated users */}
+        <Route
+          path='/'
+          element={
+            <RedirectAuthenticatedUser>
+              <LandingPage />
+            </RedirectAuthenticatedUser>
+          }
+        />
+        <Route
+          path='/admindashboard'
+          element={
+            <ProtectedRoute role="admin">
+              <ADashboard />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path='/dashboard'
           element={
             <ProtectedRoute>
               <DashboardPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path='/landingpage'
-          element={
-            <ProtectedRoute>
-              <LandingPage />
             </ProtectedRoute>
           }
         />
@@ -107,7 +125,6 @@ function App() {
             </RedirectAuthenticatedUser>
           }
         />
-
         <Route
           path='/reset-password/:token'
           element={
@@ -116,9 +133,10 @@ function App() {
             </RedirectAuthenticatedUser>
           }
         />
-        {/* catch all routes */}
+        {/* catch-all route */}
         <Route path='*' element={<Navigate to='/' replace />} />
       </Routes>
+
       <Toaster />
     </div>
   );

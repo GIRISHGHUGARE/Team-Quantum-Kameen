@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Mail, Lock, Loader } from "lucide-react";
-import { Link } from "react-router-dom";
 import Input from "../../components/Input";
 import { useAuthStore } from "../../store/authStore";
 import { GoogleLogin } from '@react-oauth/google';
@@ -11,10 +11,11 @@ const LoginPage = () => {
     const [password, setPassword] = useState("");
 
     const { login, isLoading, error } = useAuthStore();
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        await login(email, password);
+        await login(email, password, navigate);
     };
     const handleGoogleLoginSuccess = async (response) => {
         const { credential } = response;

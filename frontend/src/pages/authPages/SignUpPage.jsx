@@ -35,7 +35,7 @@ const SignUpPage = () => {
 
         try {
             await signup(userData.name, userData.email, defaultPassword);
-            navigate("/");
+            navigate("/dashboard");
         } catch (error) {
             console.log("Google login failed:", error);
         }

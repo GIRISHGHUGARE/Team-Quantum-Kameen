@@ -1,10 +1,12 @@
 {
   "name": "team-quantam-kameen",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "main": "sever.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cross-env NODE_ENV=development nodemon backend/server.js",
+    "build": "npm install && npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
   "author": "",

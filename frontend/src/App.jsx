@@ -14,13 +14,14 @@ import Homebg from "./assets/Homebg.jpg"
 import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "./store/authStore";
 import { useEffect } from "react";
-
+import LandingPage from "./pages/clientPages/LandingPage";
+import "./App.css"
 // protect routes that require authentication
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, user } = useAuthStore();
 
   if (!isAuthenticated) {
-    return <Navigate to='/login' replace />;
+    return <Navigate to='/dashboard' replace />;
   }
 
   if (!user.isVerified) {
@@ -66,10 +67,18 @@ function App() {
 
       <Routes>
         <Route
-          path='/'
+          path='/dashboard'
           element={
             <ProtectedRoute>
               <DashboardPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/landingpage'
+          element={
+            <ProtectedRoute>
+              <LandingPage />
             </ProtectedRoute>
           }
         />

@@ -21,7 +21,7 @@ const LoginPage = () => {
         const userData = jwtDecode(credential);
         setEmail(userData.email);
         await login(userData.email, "defaultpassword");
-        navigate("/");
+        navigate("/dashboard");
     };
 
     return (

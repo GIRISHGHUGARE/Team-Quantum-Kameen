@@ -135,6 +135,14 @@ function DashboardPage() {
                 >
                     Profile
                 </motion.button>
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => handleSectionChange("AI")}
+                    className="py-2 px-4 bg-gradient-to-r from-red-500 to-pink-500 text-white font-bold rounded-lg"
+                >
+                    AI Predict
+                </motion.button>
 
             </div>
 

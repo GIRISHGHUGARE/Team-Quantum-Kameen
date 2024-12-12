@@ -5,7 +5,7 @@ import { CartContext } from "../../features/ContextProvider";
 
 function ProductPage() {
   const [myproducts, setmyproducts] = useState([]);
-const {dispatch}=useContext(CartContext);
+  const {dispatch}=useContext(CartContext);
   useEffect(() => {
     axios
       .get("http://localhost:3001/heloo")

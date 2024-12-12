@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { BsCart } from "react-icons/bs";
+import { CartContext } from "../../features/ContextProvider";
 import { useAuthStore } from "../../store/authStore";
 import { formatDate } from "../../utils/Date";
 import axios from "axios";
@@ -13,7 +16,19 @@ function DashboardPage() {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const [activeSection, setActiveSection] = useState("courses");
-
+    const { cart } = useContext(CartContext);
+    const [myproducts, setmyproducts] = useState([]);
+    const { dispatch } = useContext(CartContext);
+    useEffect(() => {
+        axios
+            .get("http://localhost:8000/api/v1/product")
+            .then((res) => {
+                setmyproducts(res.data);
+            })
+            .catch((error) => {
+                console.error("There was an error fetching the data!", error);
+            });
+    }, []);
     const handleLogout = () => {
         logout();
     };
@@ -40,7 +55,7 @@ function DashboardPage() {
 
     const fetchMicroloans = async () => {
         try {
-            const response = await axios.get("http://localhost:8000/api/v1/microloans");
+            const response = await axios.get("http://localhost:8000/api/v1/microloan");
             setMicroloans(response.data);
         } catch (err) {
             setError("Failed to fetch microloans. Please try again later.");
@@ -153,7 +168,7 @@ function DashboardPage() {
                                 >
                                     Enroll Now
                                 </button>
-                                </motion.div>
+                            </motion.div>
                         ))}
                     </div>
                 </div>
@@ -161,9 +176,19 @@ function DashboardPage() {
 
             {activeSection === "marketplace" && (
                 <div className="space-y-6">
-                    <h3 className="text-2xl font-semibold text-center text-olive mb-4">Shop here</h3>
+                    <div className="flex items-center justify-between mb-4">
+                        <h3 className="text-2xl font-semibold text-olive text-center flex-grow">
+                            Shop here
+                        </h3>
+                        <Link to="/cart" className="flex items-center text-lg text-white ml-4">
+                            <BsCart className="mr-2" />
+                            <span>Cart ({cart.length})</span>
+                        </Link>
+                    </div>
+
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
                         {products.length > 0 ? (
                             products.map((product, index) => (
                                 <motion.div
@@ -186,7 +211,7 @@ function DashboardPage() {
                                     </p>
                                     <button
                                         className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-md transition duration-300"
-                                        onClick={() => addToCart(product)}
+                                        onClick={()=>dispatch({type:"Add",product:product})}
                                     >
                                         Add to Cart
                                     </button>
@@ -202,23 +227,38 @@ function DashboardPage() {
             {activeSection === "microloans" && (
                 <div className="space-y-6">
                     <h3 className="text-2xl font-semibold text-center text-olive mb-4">Available Microloans</h3>
-                    {loading ? (
-                        <p>Loading microloans...</p>
-                    ) : error ? (
-                        <p className="text-red-500">{error}</p>
-                    ) : (
-                        <div>
-                            {microloans.map((loan) => (
-                                <div key={loan._id} className="p-6 bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-lg shadow-md mb-4">
-                                    <h4 className="text-xl font-bold mb-2">{loan.name}</h4>
-                                    <p>{loan.description}</p>
-                                    <p className="mt-2">Amount: ₹{loan.amount}</p>
-                                </div>
-                            ))}
-                        </div>
-                    )}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                        {microloans.length > 0 ? (
+                            microloans.map((microloan, index) => (
+                                <motion.div
+                                    key={index}
+                                    className="p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700 shadow-md flex flex-col items-center"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.2 + index * 0.1 }}
+                                >
+                                    <h4 className="text-lg font-semibold text-white text-center mb-2">
+                                        {microloan.name}
+                                    </h4>
+                                    <p className="text-gray-300 text-center mb-2">{microloan.description}</p>
+                                    <p className="text-green-400 font-medium text-center mb-4">
+                                        Amount: ₹{microloan.amount}
+                                    </p>
+                                    <button
+                                        className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-md transition duration-300"
+                                        onClick={() => applyForLoan(loan)}
+                                    >
+                                        Apply Now
+                                    </button>
+                                </motion.div>
+                            ))
+                        ) : (
+                            <p className="text-center text-gray-400">No microloans available.</p>
+                        )}
+                    </div>
                 </div>
             )}
+
 
 
             {activeSection === "profile" && (

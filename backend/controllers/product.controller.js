@@ -1,5 +1,6 @@
 import { Product } from "../models/product.model.js";
-
+import Stripe from 'stripe';
+const stripe = new Stripe('sk_test_51QUtTXDed9rAXbWZnvkEi0svoZfxxxugPip62FxKQhXMBrmJxkDhvYlz6guMMJXwDPEdtoOdOn6SJRK2HD5H8wOr00u9yp285m');
 export const getProducts = async (req, res) => {
     Product.find()
   .then(events_table => res.json(events_table))
@@ -8,7 +9,7 @@ export const getProducts = async (req, res) => {
 
 
 
-export const stripe = async (req, res) => {
+export const Sstripe = async (req, res) => {
     const { total } = req.body;
 
   const product = await stripe.products.create({

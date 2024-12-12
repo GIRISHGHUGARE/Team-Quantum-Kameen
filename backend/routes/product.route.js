@@ -1,9 +1,9 @@
 import express from "express";
-import { getProducts, stripe } from "../controllers/product.controller.js";
+import { getProducts, Sstripe } from "../controllers/product.controller.js";
 
 const router = express.Router();
 
 router.get("/", getProducts);
-router.post("/stripe", stripe);
+router.post("/stripe", Sstripe);
 
 export default router;

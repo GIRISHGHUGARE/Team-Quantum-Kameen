@@ -5,6 +5,7 @@ import SignUpPage from "./pages/authPages/SignUpPage";
 import LoginPage from "./pages/authPages/LoginPage";
 import EmailVerificationPage from "./pages/authPages/EmailVerificationPage";
 import DashboardPage from "./pages/clientPages/DashboardPage";
+import CartPage from "./pages/clientPages/CartPage";
 import ForgotPasswordPage from "./pages/authPages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/authPages/ResetPasswordPage";
 
@@ -122,6 +123,15 @@ function App() {
             </RedirectAuthenticatedUser>
           }
         />
+        <Route
+          path='/cart'
+          element={
+            <ProtectedRoute>
+              <CartPage />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path='/reset-password/:token'
           element={

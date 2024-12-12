@@ -47,7 +47,7 @@ const ChatBot = () => {
                 className="max-w-lg w-full bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden"
             >
                 <div className="p-8">
-                    <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-green-400 to-emerald-500 text-transparent bg-clip-text">
+                    <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-olive to-grey text-transparent bg-clip-text">
                         AI Chatbot
                     </h2>
 
@@ -57,8 +57,8 @@ const ChatBot = () => {
                             <div
                                 key={index}
                                 className={`p-4 rounded-lg flex ${message.from === "user"
-                                    ? "bg-green-600 text-white self-end ml-auto"
-                                    : "bg-emerald-500 text-white self-start mr-auto"
+                                    ? "bg-brown text-white self-end ml-auto"
+                                    : "bg-olive text-white self-start mr-auto"
                                     }`}
                             >
                                 <p>{message.text}</p>
@@ -81,12 +81,12 @@ const ChatBot = () => {
                             onChange={(e) => setUserInput(e.target.value)}
                             placeholder="Type your message here..."
                             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-                            className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+                            className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-olive"
                         />
                         <button
                             onClick={sendMessage}
                             disabled={isLoading}
-                            className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-lg shadow-lg hover:from-green-600 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200"
+                            className="px-4 py-2 bg-gradient-to-r from-olive to-brown text-white font-bold rounded-lg shadow-lg hover:from-grey hover:to-black focus:outline-none focus:ring-2 focus:ring-grey focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200"
                         >
                             {isLoading ? <Loader className="animate-spin" size={24} /> : "Send"}
                         </button>

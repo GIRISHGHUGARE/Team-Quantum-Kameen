@@ -126,45 +126,42 @@ function DashboardPage() {
             {/* Active Section Content */}
             {activeSection === "courses" && (
                 <div className="space-y-6">
-                    <h3 className="text-2xl font-semibold text-center mb-4">Available Courses</h3>
+                    <h3 className="text-2xl font-semibold text-olive text-center mb-4">Available Courses</h3>
 
-
-                    <div className="flex-grow space-y-6">
-                        {/* Course Information */}
-                        <motion.div
-                            className="p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.4 }}
-                        >
-                            {courses.map((course) => (
-                                <motion.div
-                                    key={course._id}
-                                    className="p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.2 }}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        {courses.map((course) => (
+                            <motion.div
+                                key={course._id}
+                                className="p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.2 }}
+                            >
+                                <h3 className="text-xl font-semibold text-blue-400 mb-3">
+                                    {course.title}
+                                </h3>
+                                <p className="text-gray-300">
+                                    <span className="font-bold">Description: </span>
+                                    {course.description}
+                                </p>
+                                <p className="text-gray-300">
+                                    <span className="font-bold">Price: </span>₹{course.price}
+                                </p>
+                                <button
+                                    className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-md transition duration-300"
+                                    onClick={() => handleEnrollCourse(course._id)}
                                 >
-                                    <h3 className="text-xl font-semibold text-blue-400 mb-3">
-                                        {course.title}
-                                    </h3>
-                                    <p className="text-gray-300">
-                                        <span className="font-bold">Description: </span>
-                                        {course.description}
-                                    </p>
-                                    <p className="text-gray-300">
-                                        <span className="font-bold">Price: </span>₹{course.price}
-                                    </p>
+                                    Enroll Now
+                                </button>
                                 </motion.div>
-                            ))}
-                        </motion.div>
+                        ))}
                     </div>
                 </div>
             )}
 
             {activeSection === "marketplace" && (
                 <div className="space-y-6">
-                    <h3 className="text-2xl font-semibold text-center mb-4">Shop here</h3>
+                    <h3 className="text-2xl font-semibold text-center text-olive mb-4">Shop here</h3>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                         {products.length > 0 ? (
@@ -204,7 +201,7 @@ function DashboardPage() {
 
             {activeSection === "microloans" && (
                 <div className="space-y-6">
-                    <h3 className="text-2xl font-semibold text-center mb-4">Available Microloans</h3>
+                    <h3 className="text-2xl font-semibold text-center text-olive mb-4">Available Microloans</h3>
                     {loading ? (
                         <p>Loading microloans...</p>
                     ) : error ? (

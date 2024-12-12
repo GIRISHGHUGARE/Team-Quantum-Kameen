@@ -31,7 +31,7 @@ function DashboardPage() {
 
     const fetchProducts = async () => {
         try {
-            const response = await axios.get("http://localhost:8000/api/v1/products"); // Update URL to your API
+            const response = await axios.get("http://localhost:8000/api/v1/product"); // Update URL to your API
             setProducts(response.data);
         } catch (err) {
             console.error("Failed to fetch products:", err);
@@ -174,7 +174,7 @@ function DashboardPage() {
                                     transition={{ delay: 0.2 + index * 0.1 }}
                                 >
                                     <img
-                                        src={product.image || placeholderImage}
+                                        src={product.myimages}
                                         alt={product.name}
                                         className="w-32 h-32 object-cover rounded-md mb-4"
                                     />

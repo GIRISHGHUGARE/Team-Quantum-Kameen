@@ -70,9 +70,6 @@ function App() {
     >
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-
-      <FloatingShape color='bg-red' size='w-64 h-64' top='0%' right='10%' delay={0} />
-
       <Routes>
         {/* Default route for unauthenticated users */}
         <Route

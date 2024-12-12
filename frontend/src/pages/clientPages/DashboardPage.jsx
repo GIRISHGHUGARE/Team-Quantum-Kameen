@@ -91,7 +91,7 @@ function DashboardPage() {
                 <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => handleSectionChange("events")}
+                    onClick={() => handleSectionChange("marketplace")}
                     className="py-2 px-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold rounded-lg"
                 >
                     Marketplace
@@ -107,7 +107,7 @@ function DashboardPage() {
                 <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => handleSectionChange("profile")}
+                    onClick={() => handleSectionChange("community")}
                     className="py-2 px-4 bg-gradient-to-r from-red-500 to-pink-500 text-white font-bold rounded-lg"
                 >
                     Community
@@ -137,40 +137,26 @@ function DashboardPage() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.4 }}
                         >
-                            <h3 className="text-xl font-semibold text-olive mb-3">
-                                Course Information
-                            </h3>
-                            <p className="text-gray-300">
-                                <span className="font-bold">Name: </span>
-                                {user.name}
-                            </p>
-                            <p className="text-gray-300">
-                                <span className="font-bold">Email: </span>
-                                {user.email}
-                            </p>
-                        </motion.div>
-
-                        <motion.div
-                            className="p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.6 }}
-                        >
-                            <h3 className="text-xl font-semibold text-olive mb-3">
-                                Course 2 Information
-                            </h3>
-                            <p className="text-gray-300">
-                                <span className="font-bold">Joined: </span>
-                                {new Date(user.createdAt).toLocaleDateString("en-US", {
-                                    year: "numeric",
-                                    month: "long",
-                                    day: "numeric",
-                                })}
-                            </p>
-                            <p className="text-gray-300">
-                                <span className="font-bold">Last Login: </span>
-                                {formatDate(user.lastLogin)}
-                            </p>
+                            {courses.map((course) => (
+                                <motion.div
+                                    key={course._id}
+                                    className="p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.2 }}
+                                >
+                                    <h3 className="text-xl font-semibold text-blue-400 mb-3">
+                                        {course.title}
+                                    </h3>
+                                    <p className="text-gray-300">
+                                        <span className="font-bold">Description: </span>
+                                        {course.description}
+                                    </p>
+                                    <p className="text-gray-300">
+                                        <span className="font-bold">Price: </span>₹{course.price}
+                                    </p>
+                                </motion.div>
+                            ))}
                         </motion.div>
                     </div>
                 </div>

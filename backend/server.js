@@ -7,6 +7,7 @@ import path from "path";
 import { connectDB } from "./db/connectDB.js";
 import authRoutes from "./routes/auth.route.js";
 import courseRoutes from "./routes/course.route.js";
+import  productRoutes from "./routes/product.route.js";
 import './config/passport.js';
 import passport from 'passport';
 import session from 'express-session';
@@ -37,6 +38,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use("/api/v1/auth", authRoutes);
 app.use('/api/v1/courses', courseRoutes);
+app.use('/api/v1/product', productRoutes);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "client/dist")));

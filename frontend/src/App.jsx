@@ -131,6 +131,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path='/chatbot'
+          element={
+            <ProtectedRoute>
+              <CartPage />
+            </ProtectedRoute>
+          }
+        />
 
         <Route
           path='/reset-password/:token'

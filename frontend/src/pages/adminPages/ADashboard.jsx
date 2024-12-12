@@ -64,7 +64,7 @@ function ADashboard() {
             );
 
         } catch (err) {
-            alert("Failed to delete user.");
+            alert("Failed to add course.");
         }
     };
 

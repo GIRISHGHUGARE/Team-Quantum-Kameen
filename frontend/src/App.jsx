@@ -16,6 +16,7 @@ import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "./store/authStore";
 import { useEffect } from "react";
 import LandingPage from "./pages/clientPages/LandingPage";
+import ChatBot from "./pages/clientPages/ChatBot";
 import "./App.css"
 import ADashboard from "./pages/adminPages/ADashboard";
 
@@ -133,12 +134,9 @@ function App() {
         />
         <Route
           path='/chatbot'
-          element={
-            <ProtectedRoute>
-              <CartPage />
-            </ProtectedRoute>
-          }
+          element={<ChatBot />}
         />
+
 
         <Route
           path='/reset-password/:token'

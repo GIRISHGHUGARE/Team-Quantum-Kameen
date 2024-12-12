@@ -39,10 +39,7 @@ const ChatBot = () => {
     };
 
     return (
-        <div
-            className="min-h-screen bg-gradient-to-br
-    from-gray-900 via-green-900 to-emerald-900 flex items-center justify-center relative overflow-hidden"
-        >
+        <div>
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -60,8 +57,8 @@ const ChatBot = () => {
                             <div
                                 key={index}
                                 className={`p-4 rounded-lg flex ${message.from === "user"
-                                        ? "bg-green-600 text-white self-end ml-auto"
-                                        : "bg-emerald-500 text-white self-start mr-auto"
+                                    ? "bg-green-600 text-white self-end ml-auto"
+                                    : "bg-emerald-500 text-white self-start mr-auto"
                                     }`}
                             >
                                 <p>{message.text}</p>

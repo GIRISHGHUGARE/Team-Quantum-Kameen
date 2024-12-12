@@ -12,6 +12,10 @@ import './config/passport.js';
 import passport from 'passport';
 import session from 'express-session';
 import KNN from "ml-knn";
+import bodyParser from "body-parser";
+import dialogflow from '@google-cloud/dialogflow';
+
+
 const trainingSet = [
     [1, 50, 1, 1], // Eco-Friendly
     [0, 200, 0, 0], // Non-Eco-Friendly
@@ -87,6 +91,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(bodyParser.json());
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
@@ -103,6 +108,52 @@ app.use("/api/v1/auth", authRoutes);
 app.use('/api/v1/courses', courseRoutes);
 app.use('/api/v1/product', productRoutes);
 app.use('/api/v1/microloan', microloanRoutes);
+
+
+// Create Dialogflow session client
+const sessionClient = new dialogflow.SessionsClient({
+    keyFilename: path.join(__dirname, 'service-acc-key.json')
+});
+
+const projectId = process.env.DIALOGFLOW_PROJECT_ID;
+const sessionId = 'random-session-id'; // You can change this to make each session unique
+const sessionPath = sessionClient.projectAgentSessionPath(projectId, sessionId);
+
+// Endpoint to handle chat messages from the frontend
+app.post('/api/chat', async (req, res) => {
+    const userMessage = req.body.message;
+
+    try {
+        // Prepare Dialogflow request
+        const request = {
+            session: sessionPath,
+            queryInput: {
+                text: {
+                    text: userMessage,
+                    languageCode: 'en',
+                },
+            },
+        };
+
+        // Send request to Dialogflow
+        const responses = await sessionClient.detectIntent(request);
+        const result = responses[0].queryResult;
+
+        // Check if the response contains a specific intent for course information
+        if (result.intent.displayName === 'Course Information') {
+            // Optionally, retrieve course data from your database
+            const courses = await getCourses(); // Assume you have a function to fetch courses
+            result.fulfillmentText = `Our available courses are: ${courses.join(', ')}. Would you like to enroll?`;
+        }
+
+        // Send Dialogflow response back to frontend
+        res.json({ message: result.fulfillmentText });
+
+    } catch (error) {
+        console.error('Error sending message to Dialogflow:', error);
+        res.status(500).json({ message: 'Error processing your request' });
+    }
+});
 app.post('/api/knn/predict', (req, res) => {
     const { material, carbonFootprint, packaging, certification } = req.body;
     if (

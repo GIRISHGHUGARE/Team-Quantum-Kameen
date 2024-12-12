@@ -29,6 +29,7 @@ const About = () => {
     };
 
     return (
+        <section id="about">
         <div className="flex flex-col-reverse lg:flex-row items-center justify-between px-6 lg:px-20 space-y-8 lg:space-y-0">
             {/* About Us Text Section */}
             <motion.div
@@ -88,6 +89,7 @@ const About = () => {
                 })}
             </div>
         </div>
+        </section>
     );
 };
 

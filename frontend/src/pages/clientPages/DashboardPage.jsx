@@ -317,7 +317,6 @@ function DashboardPage() {
                 </div>
             )}
 
-
             {/* Logout Button */}
             <div className="mt-6 text-center">
                 <motion.button

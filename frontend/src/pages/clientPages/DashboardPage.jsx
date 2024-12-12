@@ -7,6 +7,7 @@ import { useAuthStore } from "../../store/authStore";
 import { formatDate } from "../../utils/Date";
 import axios from "axios";
 import profileplaceholder from "./../../assets/profileplaceholder.png"
+import ProductForm from "./ProductForm";
 
 function DashboardPage() {
     const { user, logout } = useAuthStore();
@@ -219,7 +220,7 @@ function DashboardPage() {
                                     </p>
                                     <button
                                         className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-md transition duration-300"
-                                        onClick={()=>dispatch({type:"Add",product:product})}
+                                        onClick={() => dispatch({ type: "Add", product: product })}
                                     >
                                         Add to Cart
                                     </button>
@@ -266,7 +267,17 @@ function DashboardPage() {
                     </div>
                 </div>
             )}
-
+            {activeSection === "AI" && (
+                <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.5 }}
+                className="p-8 bg-gray-900 bg-opacity-80 backdrop-filter backdrop-blur-lg rounded-xl shadow-xl border border-gray-800 max-w-md mx-auto"
+              >
+            <ProductForm/>
+              </motion.div>
+            )}
 
 
             {activeSection === "profile" && (

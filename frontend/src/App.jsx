@@ -5,6 +5,7 @@ import SignUpPage from "./pages/authPages/SignUpPage";
 import LoginPage from "./pages/authPages/LoginPage";
 import EmailVerificationPage from "./pages/authPages/EmailVerificationPage";
 import DashboardPage from "./pages/clientPages/DashboardPage";
+import CartPage from "./pages/clientPages/CartPage";
 import ForgotPasswordPage from "./pages/authPages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/authPages/ResetPasswordPage";
 
@@ -70,9 +71,6 @@ function App() {
     >
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-
-      <FloatingShape color='bg-red' size='w-64 h-64' top='0%' right='10%' delay={0} />
-
       <Routes>
         {/* Default route for unauthenticated users */}
         <Route
@@ -125,6 +123,15 @@ function App() {
             </RedirectAuthenticatedUser>
           }
         />
+        <Route
+          path='/cart'
+          element={
+            <ProtectedRoute>
+              <CartPage />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path='/reset-password/:token'
           element={

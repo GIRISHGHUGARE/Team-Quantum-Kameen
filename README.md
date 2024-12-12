@@ -2,6 +2,8 @@
 
 Empowering Women in Rural India: Sustainable Practices Platform
 
+## Hosted Website
+https://team-quantum-kameen.onrender.com/
 ## Table of Contents
 - [About the Project](#about-the-project)
 - [Core Features](#core-features)

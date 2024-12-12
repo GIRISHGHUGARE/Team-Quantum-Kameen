@@ -49,42 +49,42 @@ function LandingPage() {
     const navigate = useNavigate(); // Initialize navigate function
 
     const handleButtonClick = () => {
-        navigate('/new-page'); // Redirect to the new page (replace with your route)
+        navigate('/chatbot'); // Redirect to the new page (replace with your route)
     };
 
     return (
         <section id="home">
-        <div className="relative h-screen w-screen">
-            {/* Background Image */}
-            <div
-                className="absolute inset-0 opacity-90 bg-cover bg-center"
-                style={{
-                    backgroundImage: `url(${Homebg})`, // Background image
-                }}
-            ></div>
+            <div className="relative h-screen w-screen">
+                {/* Background Image */}
+                <div
+                    className="absolute inset-0 opacity-90 bg-cover bg-center"
+                    style={{
+                        backgroundImage: `url(${Homebg})`, // Background image
+                    }}
+                ></div>
 
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black via-black/60 to-transparent"></div>
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black via-black/60 to-transparent"></div>
 
-            {/* Main Content */}
-            <div className="relative z-10">
-                <Header />
-                <Hero />
-                <About />
-                <Services />
-                <ContactUs/>
-                <Footer />
+                {/* Main Content */}
+                <div className="relative z-10">
+                    <Header />
+                    <Hero />
+                    <About />
+                    <Services />
+                    <ContactUs />
+                    <Footer />
+                </div>
+
+                {/* Circular Button */}
+                <button
+                    className="fixed bottom-14 right-5 w-20 h-20 bg-creme text-white rounded-full shadow-lg flex items-center justify-center hover:bg-brown transition duration-300 z-20"
+                    onClick={handleButtonClick} // On click, navigate to the new page
+                >
+                    {/* Icon or Image */}
+                    <img src={chatbotIcon} alt="Icon" className="w-20 h-20" />
+                </button>
             </div>
-
-            {/* Circular Button */}
-            <button
-                className="fixed bottom-14 right-5 w-20 h-20 bg-creme text-white rounded-full shadow-lg flex items-center justify-center hover:bg-brown transition duration-300 z-20"
-                onClick={handleButtonClick} // On click, navigate to the new page
-            >
-                {/* Icon or Image */}
-                <img src={chatbotIcon} alt="Icon" className="w-20 h-20" />
-            </button>
-        </div>
         </section>
     );
 }

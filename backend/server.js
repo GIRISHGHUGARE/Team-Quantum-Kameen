@@ -116,7 +116,7 @@ const sessionClient = new dialogflow.SessionsClient({
 });
 
 const projectId = process.env.DIALOGFLOW_PROJECT_ID;
-const sessionId = 'random-session-id'; // You can change this to make each session unique
+const sessionId = 'random-session-id';
 const sessionPath = sessionClient.projectAgentSessionPath(projectId, sessionId);
 
 // Endpoint to handle chat messages from the frontend
